@@ -1,0 +1,27 @@
+@import 'tailwindcss';
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap');
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@layer base {
+  /* Terapkan ke seluruh halaman */
+    html {
+    @apply font-sans; /* Akan pakai Montserrat dari konfigurasi tailwind */
+    }
+
+  /* Atur ketebalan default */
+    body {
+    @apply font-normal; /* weight 400 */
+    }
+
+    h1 {
+    @apply text-3xl font-bold; /* weight 700 */
+    }
+
+    h2 {
+    @apply text-2xl font-semibold; /* weight 600 */
+    }
+}
