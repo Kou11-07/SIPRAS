@@ -104,11 +104,12 @@
                                         Nomor Telepon
                                     </label>
                                     <input type="tel" name="phone" id="phone"
-                                        value="{{ old('phone', $siswa->phone ?? '') }}"
+                                        value="{{ old('phone', $siswa->phone ?? '') }}" maxlength="13"
+                                        oninput="this.value = this.value.replace(/[^0-9]/g, '')"
                                         class="w-full px-3 py-2 sm:px-4 sm:py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 transition text-sm sm:text-base"
                                         placeholder="Contoh: 081234567890">
-                                    <p class="text-xs text-slate-400 mt-1">* Diisi dengan nomor WhatsApp aktif (opsional)
-                                    </p>
+                                    <p class="text-xs text-slate-400 mt-1">* Diisi dengan nomor WhatsApp aktif (maksimal 13
+                                        digit, opsional)</p>
                                 </div>
                             </div>
 
@@ -161,6 +162,20 @@
                 const tanggalLahir = document.getElementById('tanggal_lahir').value;
                 const kelas = document.getElementById('kelas');
                 const phone = document.getElementById('phone').value.trim();
+
+                // Validasi nomor telepon (jika diisi)
+                if (phone && phone.length > 13) {
+                    alert('Nomor telepon maksimal 13 digit!');
+                    e.preventDefault();
+                    return false;
+                }
+
+                // Validasi hanya angka untuk phone
+                if (phone && !/^\d+$/.test(phone)) {
+                    alert('Nomor telepon hanya boleh berisi angka!');
+                    e.preventDefault();
+                    return false;
+                }
 
                 // Ambil text kelas
                 const kelasText = kelas.options[kelas.selectedIndex]?.textContent || 'Belum dipilih';

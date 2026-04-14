@@ -284,10 +284,6 @@
                                                 {{ $siswa->firstItem() + $index }}</td>
                                             <td class="px-6 py-4">
                                                 <div class="flex items-center space-x-3">
-                                                    <div
-                                                        class="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-sm">
-                                                        {{ substr($s->username, 0, 1) }}
-                                                    </div>
                                                     <div>
                                                         <p class="text-sm font-semibold text-slate-800">
                                                             {{ $s->username }}</p>

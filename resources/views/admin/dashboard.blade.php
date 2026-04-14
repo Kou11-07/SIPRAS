@@ -224,10 +224,7 @@
                                                     {{ $tiket->no_tiket }}</td>
                                                 <td class="px-6 py-4 whitespace-nowrap">
                                                     <div class="flex items-center space-x-3">
-                                                        <div
-                                                            class="w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xs">
-                                                            {{ substr($tiket->nama_pengirim, 0, 1) }}
-                                                        </div>
+
                                                         <span
                                                             class="text-sm text-slate-600">{{ $tiket->nama_pengirim }}</span>
                                                     </div>

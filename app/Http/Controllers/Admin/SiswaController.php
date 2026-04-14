@@ -77,12 +77,13 @@ class SiswaController extends Controller
 
     public function store(Request $request)
     {
+        // Di controller admin/siswa (store/update)
         $request->validate([
-            'nisn' => 'required|string|unique:users',
-            'username' => 'required|string|max:255',
+            'nisn' => 'required|string|size:10|unique:users,nisn,' . ($siswa->id ?? ''),
+            'username' => 'required|string|max:40|unique:users,username,' . ($siswa->id ?? ''),
             'tanggal_lahir' => 'required|date',
-            'phone' => 'nullable|string|max:20',
-            'kelas' => 'required|exists:kelas,id', // Validasi kelas harus ada di tabel kelas
+            'kelas' => 'required|exists:kelas,id',
+            'phone' => 'nullable|string|max:13|regex:/^[0-9]+$/',
         ]);
 
         // Ambil data kelas berdasarkan ID

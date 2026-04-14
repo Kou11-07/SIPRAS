@@ -57,7 +57,8 @@
                 @endif
 
                 <!-- Form -->
-                <form method="POST" action="{{ route('user.tickets.store') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('user.tickets.store') }}" enctype="multipart/form-data"
+                    onsubmit="return confirm('Apakah Anda yakin data pengaduan sudah lengkap dan benar?')">
                     @csrf
 
                     <!-- Data Anda -->

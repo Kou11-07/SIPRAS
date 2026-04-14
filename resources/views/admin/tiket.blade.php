@@ -92,10 +92,6 @@
                                             {{ request('status') == 'verifikasi' ? 'selected' : '' }}>Verifikasi</option>
                                         <option value="proses" {{ request('status') == 'proses' ? 'selected' : '' }}>
                                             Diproses</option>
-                                        <option value="selesai" {{ request('status') == 'selesai' ? 'selected' : '' }}>
-                                            Selesai</option>
-                                        <option value="ditolak" {{ request('status') == 'ditolak' ? 'selected' : '' }}>
-                                            Ditolak</option>
                                     </select>
                                 </div>
 
@@ -353,10 +349,7 @@
                                                 {{ $tickets->firstItem() + $index }}</td>
                                             <td class="px-6 py-4">
                                                 <div class="flex items-center space-x-3">
-                                                    <div
-                                                        class="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-sm">
-                                                        {{ substr($ticket->nama_pengirim, 0, 1) }}
-                                                    </div>
+
                                                     <div>
                                                         <p class="text-sm font-semibold text-slate-800">
                                                             {{ $ticket->nama_pengirim }}</p>
