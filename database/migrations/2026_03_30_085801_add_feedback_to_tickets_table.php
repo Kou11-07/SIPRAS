@@ -1,4 +1,3 @@
-// database/migrations/xxxx_add_feedback_to_tickets_table.php
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -10,14 +9,19 @@ return new class extends Migration
     public function up()
     {
         Schema::table('tickets', function (Blueprint $table) {
-            $table->text('feedback')->nullable()->after('catatan_admin');
+            // Cek dulu apakah kolom feedback sudah ada
+            if (!Schema::hasColumn('tickets', 'feedback')) {
+                $table->text('feedback')->nullable()->after('deskripsi');
+            }
         });
     }
 
     public function down()
     {
         Schema::table('tickets', function (Blueprint $table) {
-            $table->dropColumn('feedback');
+            if (Schema::hasColumn('tickets', 'feedback')) {
+                $table->dropColumn('feedback');
+            }
         });
     }
 };
