@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -14,7 +14,7 @@ class AdminUserSeeder extends Seeder
     public function run(): void
     {
         User::create([
-            'nisn' => '1234567890',
+            'nisn' => '555555555',
             'username' => 'Admin Sekolah',
             'tanggal_lahir' => '1990-01-01',
             'password' => 'admin123',
