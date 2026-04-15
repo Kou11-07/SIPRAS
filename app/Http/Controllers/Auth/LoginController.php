@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -24,9 +25,11 @@ class LoginController extends Controller
                 'password' => 'required|string'
             ]);
 
-            $user = User::authenticateAdmin($request->username, $request->password);
+            $user = User::where('username', $request->username)
+                ->where('role', 'admin')
+                ->first();
 
-            if (!$user) {
+            if (!$user || !Hash::check($request->password, $user->password)) {
                 return back()->withErrors(['login' => 'Username atau password salah']);
             }
 
