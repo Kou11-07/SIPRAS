@@ -27,15 +27,16 @@ class DashboardController extends Controller
         $ditolak = Ticket::where('status', Ticket::STATUS_DITOLAK)->count();
 
         // Tiket per bulan (untuk chart)
-        // ✅ KODE BARU (PostgreSQL)
         $tikertPerBulan = Ticket::select(
-            DB::raw('EXTRACT(MONTH FROM created_at) as bulan'),
+            DB::raw('MONTH(created_at) as bulan'),
             DB::raw('COUNT(*) as total')
         )
-            ->whereRaw('EXTRACT(YEAR FROM created_at) = ?', [date('Y')])
+            ->whereYear('created_at', date('Y'))
             ->groupBy('bulan')
             ->orderBy('bulan')
-            ->get();
+            ->get()
+            ->pluck('total', 'bulan')
+            ->toArray();
 
         $chartData = [];
         for ($i = 1; $i <= 12; $i++) {
@@ -61,9 +62,8 @@ class DashboardController extends Controller
             ->get();
 
         // 2. Per Bulan (SEMUA BULAN - tanpa batasan)
-        // ✅ KODE BARU (PostgreSQL)
         $perBulan = Ticket::select(
-            DB::raw('TO_CHAR(created_at, \'YYYY-MM\') as bulan'),
+            DB::raw('DATE_FORMAT(created_at, "%Y-%m") as bulan'),
             DB::raw('COUNT(*) as total')
         )
             ->groupBy('bulan')
