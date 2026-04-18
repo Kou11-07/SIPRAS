@@ -263,13 +263,12 @@
                                                 </div>
                                             </div>
 
-                                            <!-- Foto Bukti -->
+                                            <!-- Foto Bukti - Mobile View -->
                                             @if ($ticket->foto_bukti)
                                                 <div>
                                                     <h4 class="text-sm font-semibold text-slate-700 mb-2">Foto Bukti</h4>
                                                     <div class="bg-white p-3 rounded-lg border border-slate-200">
-                                                        <img src="{{ asset('storage/' . $ticket->foto_bukti) }}"
-                                                            alt="Foto Bukti"
+                                                        <img src="{{ asset($ticket->foto_bukti) }}" alt="Foto Bukti"
                                                             class="max-h-48 rounded-lg mx-auto cursor-pointer hover:opacity-90 transition"
                                                             onclick="window.open(this.src, '_blank')">
                                                     </div>
@@ -465,7 +464,7 @@
                                                             <h4 class="text-sm font-semibold text-slate-700 mb-3">Foto
                                                                 Bukti</h4>
                                                             <div class="bg-white p-4 rounded-lg border border-slate-200">
-                                                                <img src="{{ asset('storage/' . $ticket->foto_bukti) }}"
+                                                                <img src="{{ asset($ticket->foto_bukti) }}"
                                                                     alt="Foto Bukti"
                                                                     class="max-h-64 rounded-lg mx-auto cursor-pointer hover:opacity-90 transition shadow-md"
                                                                     onclick="window.open(this.src, '_blank')">
@@ -625,7 +624,12 @@
 
                 function updateStatus(ticketId, newStatus, selectElement) {
                     event.stopPropagation();
-                    const feedbackTextarea = document.getElementById('feedback-' + ticketId);
+
+                    // 🔥 Ambil textarea yang SATU AREA dengan select
+                    const container = selectElement.closest('tr')?.nextElementSibling ||
+                        selectElement.closest('div'); // fallback mobile
+
+                    const feedbackTextarea = container.querySelector('textarea');
                     const feedback = feedbackTextarea ? feedbackTextarea.value.trim() : '';
 
                     if (!feedback) {
@@ -637,14 +641,13 @@
 
                     let confirmMessage = 'Yakin ingin mengubah status tiket ini?\n\nFeedback: "' + feedback +
                         '" akan dikirim ke pengguna.';
+
                     if (newStatus === 'selesai') {
                         confirmMessage =
-                            'Apakah Anda yakin tiket ini sudah selesai? Setelah diselesaikan, tiket akan masuk ke halaman Riwayat dan tidak dapat diubah lagi.\n\nFeedback: "' +
-                            feedback + '"';
+                            'Apakah Anda yakin tiket ini sudah selesai?\n\nFeedback: "' + feedback + '"';
                     } else if (newStatus === 'ditolak') {
                         confirmMessage =
-                            'Apakah Anda yakin ingin menolak tiket ini? Setelah ditolak, tiket akan masuk ke halaman Riwayat dan tidak dapat diubah lagi.\n\nFeedback: "' +
-                            feedback + '"';
+                            'Apakah Anda yakin ingin menolak tiket ini?\n\nFeedback: "' + feedback + '"';
                     }
 
                     if (!confirm(confirmMessage)) {
@@ -653,7 +656,6 @@
                         return;
                     }
 
-                    selectElement.setAttribute('data-previous-status', selectElement.value);
                     $.ajax({
                         url: '/admin/tiket/' + ticketId + '/status',
                         type: 'PUT',
@@ -664,19 +666,12 @@
                         },
                         success: function(response) {
                             if (response.success) {
-                                alert('Status berhasil diupdate menjadi ' + response.new_status + '\nFeedback: "' +
-                                    response.feedback + '"');
+                                alert('Status berhasil diupdate!');
                                 location.reload();
                             }
                         },
                         error: function(xhr) {
-                            let errorMsg = 'Gagal mengupdate status';
-                            if (xhr.responseJSON && xhr.responseJSON.message) errorMsg = xhr.responseJSON.message;
-                            if (xhr.responseJSON && xhr.responseJSON.errors && xhr.responseJSON.errors.feedback)
-                                errorMsg = xhr.responseJSON.errors.feedback[0];
-                            alert(errorMsg);
-                            const previousStatus = selectElement.getAttribute('data-previous-status');
-                            selectElement.value = previousStatus;
+                            alert('Gagal update!');
                         }
                     });
                 }

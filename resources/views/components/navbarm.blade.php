@@ -6,7 +6,7 @@
     <nav class="w-full flex items-center justify-between px-4 py-3">
         <!-- Logo -->
         <div class="flex items-center">
-            <img id="navbarLogoMobile" src="/img/logov2.png" class="h-auto w-32">
+            <img id="navbarLogoMobile" src="/img/Logov2.png" class="h-auto w-32">
         </div>
 
         <!-- Hamburger Menu Button -->
@@ -107,7 +107,7 @@
                         // At the very top - transparent background
                         navbar.classList.remove('bg-white', 'shadow-md');
                         navbar.classList.add('bg-transparent');
-                        if (logo) logo.src = '/img/logov2.png';
+                        if (logo) logo.src = '/img/Logov2.png';
                         hamburgerLines.forEach(line => {
                             line.classList.remove('bg-black');
                             line.classList.add('bg-white');
@@ -116,7 +116,7 @@
                         // Scrolled - white background
                         navbar.classList.remove('bg-transparent');
                         navbar.classList.add('bg-white', 'shadow-md');
-                        if (logo) logo.src = '/img/logov1.png';
+                        if (logo) logo.src = '/img/Logov1.png';
                         hamburgerLines.forEach(line => {
                             line.classList.remove('bg-white');
                             line.classList.add('bg-black');

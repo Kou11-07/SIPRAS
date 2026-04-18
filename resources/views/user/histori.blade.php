@@ -304,7 +304,7 @@
                                             <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1">Foto
                                                 Bukti</label>
                                             <div class="bg-white p-3 rounded border border-gray-200">
-                                                <img src="{{ asset('storage/' . $ticket->foto_bukti) }}" alt="Foto Bukti"
+                                                <img src="{{ asset($ticket->foto_bukti) }}" alt="Foto Bukti"
                                                     class="max-h-40 sm:max-h-48 rounded mx-auto cursor-pointer hover:opacity-90 transition"
                                                     onclick="openImageModal(this.src)">
                                             </div>

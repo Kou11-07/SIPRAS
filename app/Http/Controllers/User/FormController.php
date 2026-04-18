@@ -63,7 +63,6 @@ class FormController extends Controller
         try {
             // Handle Lokasi
             if ($request->lokasi_id === 'lainnya') {
-                // Cek apakah sudah ada lokasi dengan nama yang sama
                 $lokasi = Lokasi::firstOrCreate(
                     ['nama' => $request->lokasi_lainnya],
                     ['is_active' => true]
@@ -75,7 +74,6 @@ class FormController extends Controller
 
             // Handle Kategori
             if ($request->kategori_id === 'lainnya') {
-                // Cek apakah sudah ada kategori dengan nama yang sama
                 $kategori = KategoriSarana::firstOrCreate(
                     ['nama' => $request->kategori_lainnya],
                     ['is_active' => true]
@@ -92,30 +90,27 @@ class FormController extends Controller
             $ticket->nama_pengirim = $request->has('is_anonim') ? 'Anonim' : $user->username;
             $ticket->nisn_pengirim = $request->has('is_anonim') ? 'ANONIM' : $user->nisn;
             $ticket->kelas_id = $user->kelas_id;
-            // HAPUS BARIS INI -> $ticket->kelas_pengirim = ...
             $ticket->lokasi_id = $lokasi_id;
             $ticket->kategori_id = $kategori_id;
             $ticket->deskripsi = $request->deskripsi;
             $ticket->is_anonim = $request->has('is_anonim') ? true : false;
             $ticket->status = 'pending';
-            $ticket->kontak = $user->phone ?? $user->email ?? '-';
+            $ticket->kontak = $user->phone ?: ($user->email ?: '-');
 
+            // ============ INI BAGIAN UPLOAD FOTO YANG BENAR ============
             if ($request->hasFile('foto')) {
-                $path = $request->file('foto')->store('tickets', 'public');
-                $ticket->foto_bukti = $path;
+                $file = $request->file('foto');
+                $namaFile = time() . '_' . $file->getClientOriginalName();
+
+                // Simpan langsung ke folder public/uploads/tickets/
+                $file->move(public_path('uploads/tickets'), $namaFile);
+
+                // Simpan path relatif ke database
+                $ticket->foto_bukti = 'uploads/tickets/' . $namaFile;
             }
+            // =========================================================
 
             $ticket->save();
-
-            // UPDATE NOMOR HP DI TABEL USER JIKA BERBEDA
-            // Pastikan menggunakan model User yang benar
-            if ($user->phone != $request->kontak) {
-                $userModel = \App\Models\User::find($user->id);
-                if ($userModel) {
-                    $userModel->phone = $request->kontak;
-                    $userModel->save();
-                }
-            }
 
             DB::commit();
 

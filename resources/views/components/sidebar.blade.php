@@ -39,7 +39,7 @@
 
     <!-- Header Sidebar dengan Logo dan Tombol Close (Mobile) -->
     <div class="p-4 border-b border-slate-100 flex items-center justify-between">
-        <img src="{{ asset('img/LogoV1.png') }}" alt="Logo" class="h-10 w-auto">
+        <img src="{{ asset('/img/Logov1.png') }}" alt="Logo" class="h-10 w-auto">
         <button id="sidebarClose" class="md:hidden text-gray-500 hover:text-gray-700 p-1">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>

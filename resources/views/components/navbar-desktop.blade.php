@@ -5,7 +5,7 @@
     <nav class="max-w-7xl mx-auto flex items-center justify-between px-4 md:px-6 py-3 md:py-4">
         <!-- Logo dan Teks -->
         <div class="flex items-center gap-4">
-            <img id="navbarLogo" src="/img/logov2.png" class="h-auto w-32 md:w-44 ml-2 md:ml-5">
+            <img id="navbarLogo" src="/img/Logov2.png" class="h-auto w-32 md:w-44 ml-2 md:ml-5">
         </div>
 
         <!-- Desktop Menu -->
@@ -60,7 +60,7 @@
                     if (isAtTop) {
                         navbar.classList.remove('bg-white', 'shadow-md');
                         navbar.classList.add('bg-transparent');
-                        if (logo) logo.src = '/img/logov2.png';
+                        if (logo) logo.src = '/img/Logov2.png';
                         navLinks.forEach(link => {
                             link.classList.remove('text-gray-800', 'text-black');
                             link.classList.add('text-white');
@@ -72,7 +72,7 @@
                     } else {
                         navbar.classList.remove('bg-transparent');
                         navbar.classList.add('bg-white', 'shadow-md');
-                        if (logo) logo.src = '/img/logov1.png';
+                        if (logo) logo.src = '/img/Logov1.png';
                         navLinks.forEach(link => {
                             link.classList.remove('text-white');
                             link.classList.add('text-gray-800');

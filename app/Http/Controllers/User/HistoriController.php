@@ -11,7 +11,7 @@ class HistoriController extends Controller
     public function index()
     {
         $user = Auth::user();
-        
+
         $tickets = Ticket::with(['lokasi', 'kategori'])
             ->where('user_id', $user->id)
             ->orderBy('created_at', 'desc')

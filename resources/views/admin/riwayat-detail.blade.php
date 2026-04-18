@@ -114,12 +114,12 @@
                                     </div>
                                 </div>
 
-                                <!-- FOTO BUKTI - SAMA SEPERTI DI HISTORI USER -->
+                                <!-- FOTO BUKTI - VERSI YANG SUDAH DIPERBAIKI -->
                                 @if ($ticket->foto_bukti)
                                     <div class="mt-4">
                                         <label class="block text-sm font-medium text-slate-600 mb-1">Foto Bukti</label>
                                         <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
-                                            <img src="{{ asset('storage/' . $ticket->foto_bukti) }}" alt="Foto Bukti"
+                                            <img src="{{ asset($ticket->foto_bukti) }}" alt="Foto Bukti"
                                                 class="max-h-64 rounded-lg mx-auto cursor-pointer hover:opacity-90 transition-opacity shadow-md"
                                                 onclick="window.open(this.src, '_blank')">
                                             <p class="text-xs text-slate-400 text-center mt-2">Klik gambar untuk memperbesar
